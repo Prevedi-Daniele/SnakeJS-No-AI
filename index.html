@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake JS - No AI</title>
-    <meta name="author" content="Daniele Prevedi" />
-    <meta name="description" content="Implementazione in JavaScript Vanilla di Snake senza l'utilizzo di modelli AI" />
-    <meta name="keywords" content="Snake, Game, JavaScript Vanilla" />
+    <meta name="author" content="Daniele Prevedi">
+    <meta name="description" content="Implementazione in JavaScript Vanilla di Snake senza l'utilizzo di modelli AI">
+    <meta name="keywords" content="Snake, Game, JavaScript Vanilla">
     
 <!--     <link rel="stylesheet" href="./resources/style.css">
     <script src="./resources/script.js"></script> -->
@@ -18,46 +18,46 @@
             padding: 0;
         }
 
-        .header{
+        .header {
             text-align: center;
             font-weight: normal;
             margin-top: 20px;
             margin-bottom: 20px;
         }
 
-        .gioco{
-            width: 80vh;
-            height: 80vh;
+        .gioco {
+            width: 73vh;
+            height: 73vh;
             max-width: 900px;
             max-height: 900px;
             margin: auto;
         }
 
-        #canvasGioco{
+        #canvasGioco {
             border: 1px solid black;
             background-color: #e0e0e0;
             width: 100%;
             height: 100%;
         }
 
-        #pressToStart{
+        #pressToStart {
             background-color: rgba(0, 0, 0, 0.4);
-            width: 80vh;
-            height: 80vh;
+            width: 73vh;
+            height: 73vh;
             max-width: 900px;
             max-height: 900px;
             margin: auto;
             position: absolute;
         }
 
-        #pressToStart h2{
+        #pressToStart h2 {
             color: white;
             font-weight: normal;
             text-align: center;
             padding-top: 40%;
         }
  
-        #pressToStart button{
+        #pressToStart button {
             display: block;
             margin: auto;
             margin-top: 10px;
@@ -69,7 +69,21 @@
             border-radius: 10px;
         }
 
-        footer{
+        .punteggio {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #testoPunteggio {
+            font-weight: normal;
+            display: inline;
+        }
+
+        #numeroPunteggio {
+            display: inline;
+        }
+
+        footer {
             position: fixed;
             font-size: 0.8em;
             bottom: 0;
@@ -81,18 +95,31 @@
     </style>
     
     <script>
-        document.addEventListener("keydown", verificaInizioGioco, false);
+        document.addEventListener("keydown", verificaInizioGioco, false)
+
+        let punteggio = 0
+
+        function startGame(){
+            let pressToStart = document.getElementById("pressToStart")
+            pressToStart.style.display = "none"
+
+            let divPunteggio = document.getElementsByClassName("punteggio")[0]
+            let testoPunteggio = document.createElement("h2")
+            testoPunteggio.id = "testoPunteggio"
+            testoPunteggio.innerText = "Punteggio "
+            let numeroPunteggio = document.createElement("h2")
+            numeroPunteggio.id = "numeroPunteggio"
+            numeroPunteggio.innerText = punteggio
+            divPunteggio.append(testoPunteggio)
+            divPunteggio.append(numeroPunteggio)
+        }
 
         function verificaInizioGioco(evento){
             if(evento.key === " "){
-                startGame();
+                startGame()
             }
         }
 
-        function startGame(){
-            const pressToStart = document.getElementById("pressToStart");
-            pressToStart.style.display = "none";
-        }
     </script>
 </head>
 <body>
@@ -107,6 +134,9 @@
             
             <canvas id="canvasGioco">
             </canvas>
+        </div>
+
+        <div class="punteggio">
         </div>
 
         <footer>
