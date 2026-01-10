@@ -12,14 +12,106 @@
     <script src="./resources/script.js"></script> -->
 
     <style>
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        .header{
+            text-align: center;
+            font-weight: normal;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .gioco{
+            width: 80vh;
+            height: 80vh;
+            max-width: 900px;
+            max-height: 900px;
+            margin: auto;
+        }
+
+        #canvasGioco{
+            border: 1px solid black;
+            background-color: #e0e0e0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #pressToStart{
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 80vh;
+            height: 80vh;
+            max-width: 900px;
+            max-height: 900px;
+            margin: auto;
+            position: absolute;
+        }
+
+        #pressToStart h2{
+            color: white;
+            font-weight: normal;
+            text-align: center;
+            padding-top: 40%;
+        }
+ 
+        #pressToStart button{
+            display: block;
+            margin: auto;
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        footer{
+            position: fixed;
+            font-size: 0.8em;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f1f1f1;
+        }
     </style>
     
     <script>
+        document.addEventListener("keydown", verificaInizioGioco, false);
 
+        function verificaInizioGioco(evento){
+            if(evento.key === " "){
+                startGame();
+            }
+        }
+
+        function startGame(){
+            const pressToStart = document.getElementById("pressToStart");
+            pressToStart.style.display = "none";
+        }
     </script>
 </head>
 <body>
-    <div class=""></div>
+    <div class="content">
+        <h1 class="header">Snake JS - No AI</h1>
+
+        <div class="gioco">
+            <div id="pressToStart">
+                <h2>Premi Spazio o il pulsante per iniziare</h2>
+                <button onclick="startGame()">Inizia</button>
+            </div>
+            
+            <canvas id="canvasGioco">
+            </canvas>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Daniele Prevedi. Soggetto a licenza CC BY-NC-SA 4.0</p>   
+        </footer>
+    </div>
 </body>
 </html>
