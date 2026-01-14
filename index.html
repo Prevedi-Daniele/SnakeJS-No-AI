@@ -95,15 +95,23 @@
     </style>
     
     <script>
-        document.addEventListener("keydown", verificaInizioGioco, false)
 
+        document.addEventListener("DOMContentLoaded", inizializzaPagina, false)
+
+        let pressToStart = null
+        let divPunteggio = null
         let punteggio = 0
 
+        function inizializzaPagina(){
+            pressToStart = document.getElementById("pressToStart")
+            divPunteggio = document.getElementsByClassName("punteggio")[0]
+
+            document.addEventListener("keydown", verificaInizioGioco, false)
+        }
+
         function startGame(){
-            let pressToStart = document.getElementById("pressToStart")
             pressToStart.style.display = "none"
 
-            let divPunteggio = document.getElementsByClassName("punteggio")[0]
             let testoPunteggio = document.createElement("h2")
             testoPunteggio.id = "testoPunteggio"
             testoPunteggio.innerText = "Punteggio "
@@ -112,12 +120,33 @@
             numeroPunteggio.innerText = punteggio
             divPunteggio.append(testoPunteggio)
             divPunteggio.append(numeroPunteggio)
+
+            generaGrid()
         }
 
         function verificaInizioGioco(evento){
             if(evento.key === " "){
                 startGame()
             }
+        }
+
+        function aumentaPunteggio(){
+            punteggio += 1
+            aggiornaPunteggio()
+        }
+
+        function resetPunteggio(){
+            punteggio = 0
+            aggiornaPunteggio()
+        }
+
+        function aggiornaPunteggio(){
+            let numeroPunteggio = document.getElementById("numeroPunteggio")
+            numeroPunteggio.innerText = punteggio
+        }
+
+        function mostraPressToStart(){
+            pressToStart.style.display = "block"
         }
 
     </script>
@@ -132,8 +161,8 @@
                 <button onclick="startGame()">Inizia</button>
             </div>
             
-            <canvas id="canvasGioco">
-            </canvas>
+            <div id="canvasGioco">
+            </div>
         </div>
 
         <div class="punteggio">
