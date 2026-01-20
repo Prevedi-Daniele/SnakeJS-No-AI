@@ -1,3 +1,11 @@
+/*
+Snake JS - No AI
+Questo progetto è un'implementazione del gioco Snake realizzata in JavaScript Vanilla, senza l’uso di IA.
+Realizzato interamente da Daniele Prevedi (4° INFO) dell'ITT Agnelli.
+
+Soggetto a licenza Creative Commons CC BY-NC-SA 4.0
+*/
+
 document.addEventListener("DOMContentLoaded", inizializzaPagina, false)
 
 let pressToStart = null
@@ -258,7 +266,7 @@ function mostraPressToStart(){
     pressToStart.style.display = "block"
 
     if (pressToStart.children.length > 2) {
-        pressToStart.children [2].remove()
+        pressToStart.children[2].remove()
     }
 
     let divTestoPunteggioPrecedente = document.createElement("div")
