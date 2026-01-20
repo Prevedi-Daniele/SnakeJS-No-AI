@@ -25,7 +25,6 @@ let snake = []
 
 
 
-
 function inizializzaPagina(){
     pressToStart = document.getElementById("pressToStart")
     divPunteggio = document.getElementsByClassName("punteggio")[0]
