@@ -16,6 +16,7 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         .header {
@@ -31,6 +32,7 @@
             max-width: 900px;
             max-height: 900px;
             margin: auto;
+            position: relative;
         }
 
         #divContainerCanvasGioco {
@@ -50,7 +52,7 @@
             position: absolute;
         }
 
-        #pressToStart h2 {
+        #testoPressToStart {
             color: white;
             font-weight: normal;
             text-align: center;
@@ -81,6 +83,19 @@
 
         #numeroPunteggio {
             display: inline;
+        }
+
+        #testoPunteggioPrecedente {
+            color: white;
+            font-weight: normal;
+            display: inline;
+            font-size: 1.25em;
+        }
+
+        #numeroPunteggioPrecedente {
+            color: white;
+            display: inline;
+            font-size: 1.25em;
         }
 
         footer {
@@ -167,6 +182,8 @@
             canvasGioco.id = "campoDiGioco"
             
             divContainerGioco.append(canvasGioco)
+            canvasGioco.width = divContainerGioco.clientWidth
+            canvasGioco.height = divContainerGioco.clientHeight
             canvasGioco.style.width = "100%"
             canvasGioco.style.height = "100%"
             
@@ -174,9 +191,9 @@
             larghezzaCampo = canvasGioco.clientWidth
             altezzaCampo = canvasGioco.clientHeight
 
-            velocitaOrizzontaleSnake = Math.round(larghezzaCampo / 20)
+            velocitaOrizzontaleSnake = Math.floor(larghezzaCampo / 20)
 
-            unitaDiMisura = Math.round(larghezzaCampo / 20)
+            unitaDiMisura = Math.floor(larghezzaCampo / 20)
 
             snake = [
                 {x: 0, y: 0},
@@ -200,7 +217,7 @@
                 disegnaSnake()
                 verificaFineGioco()
                 prossimoFrameGioco()
-            }, 75)
+            }, 90)
         }
 
 
@@ -278,13 +295,13 @@
         function muoviSnake(){
             let testaSnake = {x: snake[snake.length - 1].x + velocitaOrizzontaleSnake, y: snake[snake.length - 1].y + velocitaVerticaleSnake}
 
-            snake.unshift(testaSnake)
+            snake.push(testaSnake)
 
             if(testaSnake.x === posizioneOrizzontaleCibo && testaSnake.y === posizioneVerticaleCibo){
                 aumentaPunteggio()
                 generaPosizioniCibo()
             } else {
-                snake.pop()
+                snake.shift()
             }
         }
 
@@ -352,17 +369,32 @@
 
         function mostraPressToStart(){
             pressToStart.style.display = "block"
+
+            if (pressToStart.children.length > 2) {
+                pressToStart.children [2].remove()
+            }
+
+            let divTestoPunteggioPrecedente = document.createElement("div")
+            let testoPunteggioPrecedente = document.createElement("h2")
+            testoPunteggioPrecedente.id = "testoPunteggioPrecedente"
+            testoPunteggioPrecedente.innerText = "Punteggio precedente "
+            let numeroPunteggioPrecedente = document.createElement("h2")
+            numeroPunteggioPrecedente.id = "numeroPunteggioPrecedente"
+            numeroPunteggioPrecedente.innerText = punteggio
+            pressToStart.append(divTestoPunteggioPrecedente)
+            divTestoPunteggioPrecedente.append(testoPunteggioPrecedente)
+            divTestoPunteggioPrecedente.append(numeroPunteggioPrecedente)
         }
 
 
         function generaNumeroCasuale(min, max){
-            return Math.round(Math.random() * (max - min)) + min
+            return Math.floor(Math.random() * (max - min)) + min
         }
 
 
         function generaPosizioneCasuale(min, max){
             let posizioneCasuale = generaNumeroCasuale(min, max)
-            posizioneCasuale = posizioneCasuale / unitaDiMisura * unitaDiMisura
+            posizioneCasuale = Math.floor(posizioneCasuale / unitaDiMisura) * unitaDiMisura
             return posizioneCasuale
         }
     </script>
@@ -373,7 +405,7 @@
 
         <div class="gioco">
             <div id="pressToStart">
-                <h2>Premi Spazio o il pulsante per iniziare</h2>
+                <h2 id="testoPressToStart">Premi Spazio o il pulsante per iniziare</h2>
                 <button onclick="inizializzaGioco()">Inizia</button>
             </div>
             
